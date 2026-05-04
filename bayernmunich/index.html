@@ -1,1 +1,453 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bayern Munich NFC</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, #dc052d, #041e42);
+    color: #fff;
+    text-align: center;
+}
+
+.container {
+    padding: 20px;
+}
+
+/* TARJETA */
+.card-fc {
+    position: relative;
+    width: 90%;
+    max-width: 320px;
+    height: 480px;
+    margin: 20px auto;
+    border-radius: 20px;
+    overflow: hidden;
+
+    box-shadow:
+        0 0 25px rgba(220,5,45,0.7),
+        0 0 45px rgba(4,30,66,0.8);
+}
+
+/* FONDO */
+.card-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(220,5,45,0.96),
+            rgba(4,30,66,0.94)
+        );
+
+    z-index: 1;
+}
+
+/* PATRÓN TIPO DIAMANTE */
+.card-bg::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background-image:
+        linear-gradient(
+            45deg,
+            rgba(255,255,255,0.06) 25%,
+            transparent 25%,
+            transparent 50%,
+            rgba(255,255,255,0.06) 50%,
+            rgba(255,255,255,0.06) 75%,
+            transparent 75%,
+            transparent
+        );
+
+    background-size: 40px 40px;
+
+    opacity: 0.5;
+}
+
+/* IMAGEN PRINCIPAL */
+.card-player {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-height: 300px;
+    object-fit: contain;
+    z-index: 2;
+}
+
+/* INFO */
+.card-info {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+
+    background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(0,0,0,0.9)
+    );
+
+    z-index: 3;
+    color: white;
+}
+
+.card-name {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.card-details {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+.card-details span {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 5px 12px;
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+}
+
+/* BOTONES */
+.btn {
+    display: block;
+    margin: 10px auto;
+    padding: 15px;
+    width: 90%;
+    max-width: 400px;
+
+    background: linear-gradient(
+        135deg,
+        #dc052d,
+        #041e42
+    );
+
+    color: white;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+
+    transition: 0.3s;
+
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.btn:hover {
+    transform: scale(1.03);
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,0.2);
+}
+
+/* BOTÓN PREMIUM */
+.btn-premium {
+    display: block;
+    width: 90%;
+    max-width: 320px;
+    margin: 25px auto;
+    padding: 15px;
+
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+
+    color: white;
+    text-decoration: none;
+
+    border-radius: 15px;
+
+    position: relative;
+    overflow: hidden;
+
+    background: linear-gradient(
+        135deg,
+        #dc052d,
+        #0066b2,
+        #041e42,
+        #dc052d
+    );
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    box-shadow:
+        0 0 15px rgba(220,5,45,0.6),
+        0 0 30px rgba(0,102,178,0.4);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-premium:hover {
+    transform: scale(1.05);
+
+    box-shadow:
+        0 0 25px rgba(220,5,45,0.8),
+        0 0 45px rgba(0,102,178,0.6);
+}
+
+/* BRILLO */
+.btn-premium::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+
+    background: rgba(255,255,255,0.3);
+
+    transform: skewX(-20deg);
+
+    animation: brillo 3s infinite;
+}
+
+@keyframes brillo {
+    0% { left: -75%; }
+    100% { left: 125%; }
+}
+
+/* SEPARADOR */
+.separador {
+    width: 100%;
+    height: 8px;
+
+    background: linear-gradient(
+        90deg,
+        #dc052d,
+        #ffffff,
+        #041e42
+    );
+
+    margin: 25px 0;
+
+    border-radius: 4px;
+
+    box-shadow: 0 0 12px rgba(255,255,255,0.15);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- TARJETA -->
+<div class="card-fc">
+    <div class="card-bg"></div>
+
+    <img src="kane.jpg" id="player-img" class="card-player">
+
+    <div class="card-info">
+
+        <div class="card-name" id="player-name">
+            Harry Kane
+        </div>
+
+        <div class="card-details">
+            <span id="player-position">DEL</span>
+            <span id="player-number">9</span>
+        </div>
+
+    </div>
+</div>
+
+<!-- BOTONES PREMIUM -->
+<div id="premium-container">
+
+    <a id="btn-premium-1"
+       class="btn-premium"
+       href="https://www.instagram.com/harrykane/"
+       target="_blank">
+       ⭐ Instagram
+    </a>
+
+    <a id="btn-premium-2"
+       class="btn-premium"
+       href="https://www.youtube.com/results?search_query=harry+kane+bayern+skills"
+       target="_blank">
+       🎥 Highlights
+    </a>
+
+    <a id="btn-premium-3"
+       class="btn-premium"
+       href="https://www.google.com/search?q=harry+kane+estadisticas+bayern"
+       target="_blank">
+       📊 Estadísticas
+    </a>
+
+</div>
+
+<div class="separador"></div>
+
+<a class="btn"
+   href="https://fcbayern.com/"
+   target="_blank">
+🌐 Sitio Oficial Bayern
+</a>
+
+<a class="btn"
+   href="https://www.youtube.com/@fcbayern"
+   target="_blank">
+▶️ YouTube Oficial
+</a>
+
+<a class="btn"
+   href="https://www.instagram.com/fcbayern/"
+   target="_blank">
+📸 Instagram Oficial
+</a>
+
+<a class="btn"
+   href="https://tickets.fcbayern.com/"
+   target="_blank">
+🎟️ Boletos
+</a>
+
+<a class="btn"
+   href="https://fcbayern.com/store/"
+   target="_blank">
+🛒 Tienda Oficial
+</a>
+
+<div class="separador"></div>
+
+<a class="btn"
+   href="https://www.google.com/search?q=bayern+munich+proximo+partido"
+   target="_blank">
+📅 Próximo Partido
+</a>
+
+<a class="btn"
+   href="https://www.google.com/search?q=bayern+munich+calendario"
+   target="_blank">
+🗓️ Calendario
+</a>
+
+<a class="btn"
+   href="https://www.google.com/search?q=tabla+bundesliga"
+   target="_blank">
+📊 Tabla Bundesliga
+</a>
+
+<div class="separador"></div>
+
+<a class="btn"
+   href="https://www.google.com/search?q=bayern+munich+champions+league"
+   target="_blank">
+🏆 Champions League
+</a>
+
+<a class="btn"
+   href="https://www.google.com/search?q=uefa+champions+league+standings"
+   target="_blank">
+📋 Tabla Champions
+</a>
+
+<a class="btn"
+   href="https://www.google.com/search?q=palmares+bayern+munich"
+   target="_blank">
+🏅 Palmarés Bayern
+</a>
+
+<div class="separador"></div>
+
+<a class="btn"
+   href="https://www.google.com/search?q=bayern+munich+vs+dortmund+historial"
+   target="_blank">
+⚔️ Der Klassiker
+</a>
+
+</div>
+
+<script>
+const jugadores = {
+
+    kane: {
+        nombre: "Harry Kane",
+        numero: "9",
+        posicion: "DEL",
+        imagen: "kane.jpg",
+
+        links: [
+            "https://www.instagram.com/harrykane/",
+            "https://www.youtube.com/results?search_query=harry+kane+bayern+skills",
+            "https://www.google.com/search?q=harry+kane+estadisticas+bayern"
+        ]
+    },
+
+    musiala: {
+        nombre: "Jamal Musiala",
+        numero: "42",
+        posicion: "MED",
+        imagen: "musiala.jpg",
+
+        links: [
+            "https://www.instagram.com/jamalmusiala10/",
+            "https://www.youtube.com/results?search_query=musiala+bayern+skills",
+            "https://www.google.com/search?q=musiala+estadisticas+bayern"
+        ]
+    },
+
+    kimmich: {
+        nombre: "Joshua Kimmich",
+        numero: "6",
+        posicion: "MED",
+        imagen: "kimmich.jpg",
+
+        links: [
+            "https://www.instagram.com/jok_32/",
+            "https://www.youtube.com/results?search_query=kimmich+bayern+skills",
+            "https://www.google.com/search?q=kimmich+estadisticas+bayern"
+        ]
+    }
+};
+
+const params = new URLSearchParams(window.location.search);
+const jugador = params.get("jugador");
+
+if (jugadores[jugador]) {
+
+    document.getElementById("player-name").innerText =
+        jugadores[jugador].nombre;
+
+    document.getElementById("player-number").innerText =
+        jugadores[jugador].numero;
+
+    document.getElementById("player-position").innerText =
+        jugadores[jugador].posicion;
+
+    document.getElementById("player-img").src =
+        jugadores[jugador].imagen;
+
+    document.getElementById("btn-premium-1").href =
+        jugadores[jugador].links[0];
+
+    document.getElementById("btn-premium-2").href =
+        jugadores[jugador].links[1];
+
+    document.getElementById("btn-premium-3").href =
+        jugadores[jugador].links[2];
+}
+</script>
+
+</body>
+</html>
